@@ -8,7 +8,7 @@
   {{- if eq $slot "ad-inline" }}          {{ $enabled = .adInline }} {{ end }}
   {{- if eq $slot "ad-tags" }}            {{ $enabled = .adTags }} {{ end }}
   {{- if eq $slot "ad-list-interval" }}   {{ $enabled = .adListInterval }} {{ end }}
-  {{- if eq $slot "ad-archive-top" }}     {{ $enabled = .adArchiveTop }} {{ end }} 
+  {{- if eq $slot "ad-tags-top" }}        {{ $enabled = .adTagsTop }} {{ end }}
 {{- end }}
 
 {{- if $enabled }}
