@@ -12,5 +12,10 @@
 {{- end }}
 
 {{- if $enabled }}
-  {{- partial (printf "ads/slot-%s.html" $slot) $context }}
+  {{- $partialPath := printf "ads/slot-%s.html" $slot }}
+  {{- if partialExists $partialPath }}
+    {{- partial $partialPath $context }}
+  {{- else }}
+    {{- warnf "广告位 partial [%s] 不存在，已跳过。" $partialPath }}
+  {{- end }}
 {{- end }}
