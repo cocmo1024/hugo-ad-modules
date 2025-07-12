@@ -1,0 +1,10 @@
+{{ if eq site.Params.ads.mode "image" }}
+  {{ $ad := site.Params.ads.imageMap.ad-inline }}
+  {{ with $ad }}
+    <div class="ad-slot ad-inline-shortcode">
+      <a href="{{ .link }}" target="_blank" rel="noopener">
+        <img src="{{ .img }}" alt="{{ .alt }}" loading="lazy" />
+      </a>
+    </div>
+  {{ end }}
+{{ end }}
