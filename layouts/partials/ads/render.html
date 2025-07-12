@@ -11,6 +11,7 @@
   {{- if eq $slot "ad-tags" }}            {{ $enabled = .adTags }} {{ end }}
   {{- if eq $slot "ad-list-interval" }}   {{ $enabled = .adListInterval }} {{ end }}
   {{- if eq $slot "ad-tags-top" }}        {{ $enabled = .adTagsTop }} {{ end }}
+  {{- if eq $slot "ad-home-inline" }}      {{ $enabled = .adHomeInline }} {{ end }}
 {{- end }}
 
 {{- if $enabled }}
