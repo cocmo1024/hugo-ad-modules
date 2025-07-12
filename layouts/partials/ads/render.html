@@ -1,3 +1,5 @@
+{{- /* render.html: 广告渲染分发器 */ -}}
+
 {{- $slot := .slot | default "" }}
 {{- $context := .context }}
 
@@ -16,6 +18,6 @@
   {{- if partialExists $partialPath }}
     {{- partial $partialPath $context }}
   {{- else }}
-    {{- warnf "广告位 partial [%s] 不存在，已跳过。" $partialPath }}
+    {{- warnf "⚠️ 广告位 partial [%s] 不存在，已跳过。" $partialPath }}
   {{- end }}
 {{- end }}
