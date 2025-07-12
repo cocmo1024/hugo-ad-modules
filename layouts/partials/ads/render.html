@@ -1,4 +1,4 @@
-{{- /* render.html: 广告渲染分发器 */ -}}
+{{- /* render.html: 广告渲染分发器（兼容旧版本 Hugo） */ -}}
 
 {{- $slot := .slot | default "" }}
 {{- $context := .context }}
@@ -14,10 +14,6 @@
 {{- end }}
 
 {{- if $enabled }}
-  {{- $partialPath := printf "ads/slot-%s.html" $slot }}
-  {{- if partialExists $partialPath }}
-    {{- partial $partialPath $context }}
-  {{- else }}
-    {{- warnf "⚠️ 广告位 partial [%s] 不存在，已跳过。" $partialPath }}
-  {{- end }}
+  {{- /* 注意：为避免 partialExists 报错，不判断是否存在，直接尝试调用 partial，若不存在会在构建时报错 */ -}}
+  {{- partial (printf "ads/slot-%s.html" $slot) $context }}
 {{- end }}
