@@ -1,5 +1,5 @@
 {{/* slot-ad-xxx.html 模板通用结构 */}}
-{{ $slot := "ad-top" }}
+{{ $slot := "ad-xxx" }} {{/* 请改成实际的广告位名 */}}
 {{ $mode := site.Params.ads.mode | default "demo" }}
 
 {{ if eq $mode "demo" }}
@@ -11,7 +11,6 @@
   </div>
 
 {{ else if eq $mode "image" }}
-  <!-- 使用 .Site.Params.ads.imageMap 配置 -->
   {{ with index site.Params.ads.imageMap $slot }}
     <div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
       <a href="{{ .link }}" target="_blank">
@@ -25,5 +24,4 @@
 
 {{ else if eq $mode "custom" }}
   {{ partial (printf "ads/custom/%s.html" $slot) . }}
-
 {{ end }}
