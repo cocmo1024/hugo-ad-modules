@@ -1,5 +1,29 @@
-<div class="ad-slot ad-archive-top" style="margin: 30px 0; text-align: center;">
-  <a href="https://example.com" target="_blank">
-    <img src="/ad-tags-top.webp" alt="Tags Page Ad" style="max-width:100%; height:auto;" />
-  </a>
-</div>
+{{/* slot-ad-xxx.html 模板通用结构 */}}
+{{ $slot := "ad-xxx" }}
+{{ $mode := site.Params.ads.mode | default "demo" }}
+
+{{ if eq $mode "demo" }}
+  <!-- 占位图广告（默认展示） -->
+  <div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
+    <a href="https://example.com" target="_blank">
+      <img src="/ad-demo-top.webp" alt="demo_ad" style="max-width:100%; height:auto;" />
+    </a>
+  </div>
+
+{{ else if eq $mode "image" }}
+  <!-- 使用 .Site.Params.ads.imageMap 配置 -->
+  {{ with index site.Params.ads.imageMap $slot }}
+    <div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
+      <a href="{{ .link }}" target="_blank">
+        <img src="{{ .img }}" alt="{{ .alt | default "ad" }}" style="max-width:100%; height:auto;" />
+      </a>
+    </div>
+  {{ end }}
+
+{{ else if eq $mode "adsense" }}
+  {{ partial "ads/google-adsense.html" (dict "slot" $slot) }}
+
+{{ else if eq $mode "custom" }}
+  {{ partial (printf "ads/custom/%s.html" $slot) . }}
+
+{{ end }}
