@@ -1,0 +1,15 @@
+{{/* ads/google-adsense.html */}}
+{{- $slot := .slot | default "ad-unknown" }}
+
+<!-- ✅ Google AdSense 插槽：{{ $slot }} -->
+<div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ site.Params.ads.adsense.client }}"
+       data-ad-slot="{{ index site.Params.ads.adsense.slots $slot | default "0000000000" }}"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>

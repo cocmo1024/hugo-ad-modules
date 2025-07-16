@@ -1,0 +1,27 @@
+{{/* slot-ad-xxx.html 模板通用结构 */}}
+{{ $slot := "ad-list-interval" }} {{/* 请改成实际的广告位名 */}}
+{{ $mode := site.Params.ads.mode | default "demo" }}
+
+{{ if eq $mode "demo" }}
+  <!-- 占位图广告（默认展示） -->
+  <div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
+    <a href="https://example.com" target="_blank">
+      <img src="/ad-demo-top.webp" alt="demo_ad" style="max-width:100%; height:auto;" />
+    </a>
+  </div>
+
+{{ else if eq $mode "image" }}
+  {{ with index site.Params.ads.imageMap $slot }}
+    <div class="ad-slot {{ $slot }}" style="margin: 40px 0; text-align: center;">
+      <a href="{{ .link }}" target="_blank">
+        <img src="{{ .img }}" alt="{{ .alt | default "ad" }}" style="max-width:100%; height:auto;" />
+      </a>
+    </div>
+  {{ end }}
+
+{{ else if eq $mode "adsense" }}
+  {{ partial "ads/google-adsense.html" (dict "slot" $slot) }}
+
+{{ else if eq $mode "custom" }}
+  {{ partial (printf "ads/custom/%s.html" $slot) . }}
+{{ end }}

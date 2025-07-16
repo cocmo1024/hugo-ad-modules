@@ -1,0 +1,19 @@
+{{- /* render.html: 广告渲染分发器（兼容旧版本 Hugo） */ -}}
+
+{{- $slot := .slot | default "" }}
+{{- $context := .context }}
+
+{{- $enabled := true }}
+{{- with site.Params.ads }}
+  {{- if eq $slot "ad-top" }}             {{ $enabled = .adTop }} {{ end }}
+  {{- if eq $slot "ad-bottom" }}          {{ $enabled = .adBottom }} {{ end }}
+  {{- if eq $slot "ad-inline" }}          {{ $enabled = .adInline }} {{ end }}
+  {{- if eq $slot "ad-tags" }}            {{ $enabled = .adTags }} {{ end }}
+  {{- if eq $slot "ad-list-interval" }}   {{ $enabled = .adListInterval }} {{ end }}
+  {{- if eq $slot "ad-home-inline" }}      {{ $enabled = .adHomeInline }} {{ end }}
+{{- end }}
+
+{{- if $enabled }}
+  {{- /* 注意：为避免 partialExists 报错，不判断是否存在，直接尝试调用 partial，若不存在会在构建时报错 */ -}}
+  {{- partial (printf "ads/slot-%s.html" $slot) $context }}
+{{- end }}
